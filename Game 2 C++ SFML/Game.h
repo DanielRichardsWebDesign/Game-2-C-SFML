@@ -2,8 +2,10 @@
 
 #include <iostream>
 #include <ctime>
+#include <vector>
 
 #include "Player.h"
+#include "SwagBall.h"
 
 class Game
 {
@@ -16,6 +18,12 @@ private:
 
 	//Player Object
 	Player player;
+
+	//Enemy Object Variables
+	std::vector<SwagBall> swagBalls;
+	float spawnTimerMax;
+	float spawnTimer;
+	int maxSwagBalls;
 
 	//Private Functions
 	void initVariables();
@@ -34,6 +42,7 @@ public:
 	const bool running() const;
 	void pollEvents();
 
+	void spawnSwagBalls();
 	void update();
 	void render();
 };
