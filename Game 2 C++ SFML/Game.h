@@ -3,12 +3,7 @@
 #include <iostream>
 #include <ctime>
 
-#include "SFML/Graphics.hpp"
-#include "SFML/System.hpp"
-#include "SFML/Window.hpp"
-#include "SFML/Audio.hpp"
-#include "SFML/Network.hpp"
-
+#include "Player.h"
 
 class Game
 {
@@ -18,6 +13,9 @@ private:
 	sf::RenderWindow* window;
 	bool endGame;
 	sf::Event sfmlEvent;
+
+	//Player Object
+	Player player;
 
 	//Private Functions
 	void initVariables();
