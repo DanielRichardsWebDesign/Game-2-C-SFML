@@ -18,6 +18,8 @@ public:
 	SwagBall(const sf::RenderWindow& window);
 	virtual ~SwagBall();
 
+	const sf::CircleShape getShape() const;
+
 	//Public Functions
 	void update();
 	void render(sf::RenderTarget& target);

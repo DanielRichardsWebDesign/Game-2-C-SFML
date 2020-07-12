@@ -69,6 +69,19 @@ void Game::spawnSwagBalls()
 	}	
 }
 
+void Game::updateCollision()
+{
+	//Check the collision between player and balls
+	for (size_t i = 0; i < this->swagBalls.size(); i++)
+	{
+		//Remove ball if player touches it.
+		if (this->player.getShape().getGlobalBounds().intersects(this->swagBalls[i].getShape().getGlobalBounds()))
+		{
+			this->swagBalls.erase(this->swagBalls.begin() + i);
+		}
+	}	
+}
+
 void Game::update()
 {
 	this->pollEvents();
@@ -77,6 +90,9 @@ void Game::update()
 	
 	//Update Player 
 	this->player.update(this->window);
+
+	//Update Collison
+	this->updateCollision();
 }
 
 void Game::render()
