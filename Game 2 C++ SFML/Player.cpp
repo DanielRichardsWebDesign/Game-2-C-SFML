@@ -51,9 +51,10 @@ void Player::updateInput()
 	}
 }
 
-void Player::update()
+void Player::update(sf::RenderTarget* target)
 {
 	//Window Boundaries - Collisions
+	
 
 	this->updateInput();
 }

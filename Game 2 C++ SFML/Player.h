@@ -23,7 +23,7 @@ public:
 	virtual ~Player();
 
 	void updateInput();
-	void update();
+	void update(sf::RenderTarget* target);
 
 	void render(sf::RenderTarget* target);
 };
