@@ -29,8 +29,7 @@ void Game::initText()
 	//Gui text init
 	this->guiText.setFont(this->font);
 	this->guiText.setFillColor(sf::Color::White);
-	this->guiText.setCharacterSize(24);
-	this->guiText.setString("test");
+	this->guiText.setCharacterSize(32);
 }
 
 //Constructor
@@ -102,6 +101,15 @@ void Game::updateCollision()
 	}	
 }
 
+void Game::updateGui()
+{
+	std::stringstream ss;
+
+	ss << "Points: " << this->points;
+
+	this->guiText.setString(ss.str());
+}
+
 void Game::update()
 {
 	this->pollEvents();
@@ -113,6 +121,9 @@ void Game::update()
 
 	//Update Collison
 	this->updateCollision();
+
+	//Update Points Gui
+	this->updateGui();
 }
 
 void Game::renderGui(sf::RenderTarget* target)

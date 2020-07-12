@@ -3,6 +3,7 @@
 #include <iostream>
 #include <ctime>
 #include <vector>
+#include <sstream>
 
 #include "Player.h"
 #include "SwagBall.h"
@@ -51,6 +52,7 @@ public:
 
 	void spawnSwagBalls();
 	void updateCollision();
+	void updateGui();
 	void update();
 
 	void renderGui(sf::RenderTarget* target);
