@@ -51,12 +51,30 @@ void Player::updateInput()
 	}
 }
 
-void Player::update(sf::RenderTarget* target)
+//Update Boundary collisions if something collides with it
+void Player::updateWindowBoundsCollision(const sf::RenderTarget* target)
 {
-	//Window Boundaries - Collisions
-	
+	//Left Boundary Collision
+	sf::FloatRect playerBounds = this->shape.getGlobalBounds();
+	if (playerBounds.left <= 0.f)
+		this->shape.setPosition(0.f, playerBounds.top);
+	//Right Boundary Collision
+	else if (playerBounds.left + playerBounds.width >= target->getSize().x)
+		this->shape.setPosition(target->getSize().x - playerBounds.width, playerBounds.top);
+	//Top Boundary Collision	
+	if (playerBounds.top <= 0.f)
+		this->shape.setPosition(playerBounds.left, 0.f);
+	//Bottom Boundary Collision
+	else if (playerBounds.top + playerBounds.height >= target->getSize().y)
+		this->shape.setPosition(playerBounds.left, target->getSize().y - playerBounds.height);
+}
 
+void Player::update(const sf::RenderTarget* target)
+{
 	this->updateInput();
+
+	//Window Boundaries - Collisions
+	this->updateWindowBoundsCollision(target);
 }
 
 //Render player to targeted window.
