@@ -97,6 +97,9 @@ void Game::updateCollision()
 		if (this->player.getShape().getGlobalBounds().intersects(this->swagBalls[i].getShape().getGlobalBounds()))
 		{
 			this->swagBalls.erase(this->swagBalls.begin() + i);
+
+			//Add points.
+			this->points++;
 		}
 	}	
 }
