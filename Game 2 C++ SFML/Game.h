@@ -17,7 +17,12 @@ private:
 	sf::Event sfmlEvent;
 
 	//Player Object
-	Player player;
+	Player player;	
+
+	//Display Points variables
+	int points;
+	sf::Font font;
+	sf::Text guiText;
 
 	//Enemy Object Variables
 	std::vector<SwagBall> swagBalls;
@@ -28,6 +33,8 @@ private:
 	//Private Functions
 	void initVariables();
 	void initWindow();
+	void initFonts();
+	void initText();
 
 public:
 	//Constructors and Destructors
@@ -45,6 +52,8 @@ public:
 	void spawnSwagBalls();
 	void updateCollision();
 	void update();
+
+	void renderGui(sf::RenderTarget* target);
 	void render();
 };
 

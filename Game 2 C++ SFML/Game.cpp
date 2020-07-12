@@ -6,6 +6,7 @@ void Game::initVariables()
 	this->spawnTimerMax = 10.f;
 	this->spawnTimer = this->spawnTimerMax;
 	this->maxSwagBalls = 10;
+	this->points = 0;
 }
 
 void Game::initWindow()
@@ -15,11 +16,30 @@ void Game::initWindow()
 	this->window->setFramerateLimit(60);
 }
 
+void Game::initFonts()
+{
+	if(!this->font.loadFromFile("Fonts/FreePixel.ttf"));
+	{
+		std::cout << "Unable to initiate font FreePixel.ttf!" << "\n";
+	}
+}
+
+void Game::initText()
+{
+	//Gui text init
+	this->guiText.setFont(this->font);
+	this->guiText.setFillColor(sf::Color::White);
+	this->guiText.setCharacterSize(24);
+	this->guiText.setString("test");
+}
+
 //Constructor
 Game::Game()
 {
 	this->initVariables();
 	this->initWindow();
+	this->initFonts();
+	this->initText();
 }
 
 //Destructor
@@ -95,6 +115,11 @@ void Game::update()
 	this->updateCollision();
 }
 
+void Game::renderGui(sf::RenderTarget* target)
+{
+	target->draw(this->guiText);
+}
+
 void Game::render()
 {
 	this->window->clear();
@@ -107,6 +132,9 @@ void Game::render()
 	{
 		i.render(*this->window);
 	}
+
+	//Render gui
+	this->renderGui(this->window);
 
 	//Render window
 	this->window->display();
