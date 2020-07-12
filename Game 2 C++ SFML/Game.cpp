@@ -9,6 +9,7 @@ void Game::initWindow()
 {
 	this->videoMode = sf::VideoMode(800, 600);
 	this->window = new sf::RenderWindow(this->videoMode, "Game 2", sf::Style::Close | sf::Style::Titlebar);
+	this->window->setFramerateLimit(60);
 }
 
 //Constructor
@@ -52,6 +53,9 @@ void Game::pollEvents()
 void Game::update()
 {
 	this->pollEvents();
+	
+	//Update Player 
+	this->player.update();
 }
 
 void Game::render()
