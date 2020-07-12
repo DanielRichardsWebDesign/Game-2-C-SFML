@@ -25,12 +25,39 @@ Game::~Game()
 }
 
 //Functions
+//Ensure game is running while window is open.
+const bool Game::running() const
+{
+	return this->window->isOpen();
+}
+
+//Listen for events in window
+void Game::pollEvents()
+{
+	while (this->window->pollEvent(this->sfmlEvent))
+	{
+		switch (this->sfmlEvent.type)
+		{
+		case sf::Event::Closed:
+			this->window->close();
+			break;
+		case sf::Event::KeyPressed:
+			if (this->sfmlEvent.key.code == sf::Keyboard::Escape)
+				this->window->close();
+			break;
+		}
+	}
+}
+
 void Game::update()
 {
-
+	this->pollEvents();
 }
 
 void Game::render()
 {
+	this->window->clear();
 
+	//Render game objects
+	this->window->display();
 }

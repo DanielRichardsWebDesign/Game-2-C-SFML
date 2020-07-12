@@ -17,6 +17,7 @@ private:
 	sf::VideoMode videoMode;
 	sf::RenderWindow* window;
 	bool endGame;
+	sf::Event sfmlEvent;
 
 	//Private Functions
 	void initVariables();
@@ -32,6 +33,9 @@ public:
 	//Modifiers
 
 	//Public Functions
+	const bool running() const;
+	void pollEvents();
+
 	void update();
 	void render();
 };
