@@ -24,6 +24,7 @@ private:
 	int points;
 	sf::Font font;
 	sf::Text guiText;
+	sf::Text endGameText;
 
 	//Enemy Object Variables
 	std::vector<SwagBall> swagBalls;
@@ -43,6 +44,7 @@ public:
 	~Game();
 
 	//Accessors
+	const bool& getEndGame() const;
 
 	//Modifiers
 
@@ -51,8 +53,10 @@ public:
 	void pollEvents();
 
 	void spawnSwagBalls();
+	const int randBallType() const;
+	void updatePlayer();
 	void updateCollision();
-	void updateGui();
+	void updateGui();	
 	void update();
 
 	void renderGui(sf::RenderTarget* target);

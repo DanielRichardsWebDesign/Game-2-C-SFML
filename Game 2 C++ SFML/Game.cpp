@@ -30,6 +30,13 @@ void Game::initText()
 	this->guiText.setFont(this->font);
 	this->guiText.setFillColor(sf::Color::White);
 	this->guiText.setCharacterSize(32);
+
+	//Initiate end game text
+	this->endGameText.setFont(this -> font);
+	this->endGameText.setFillColor(sf::Color::Red);
+	this->endGameText.setCharacterSize(60);
+	this->endGameText.setPosition(sf::Vector2f(20, 300));
+	this->endGameText.setString("GAME OVER!");
 }
 
 //Constructor
@@ -45,6 +52,13 @@ Game::Game()
 Game::~Game()
 {
 	delete this->window;
+}
+
+//Accessors
+//Get end game state
+const bool& Game::getEndGame() const
+{
+	return this->endGame;
 }
 
 //Functions
@@ -81,11 +95,32 @@ void Game::spawnSwagBalls()
 	{
 		if (this->swagBalls.size() < this->maxSwagBalls)
 		{
-			this->swagBalls.push_back(SwagBall(*this->window, rand() % SwagBallTypes::NROFTYPES)); //Last part spawns a random type of ball.
+			this->swagBalls.push_back(SwagBall(*this->window, this->randBallType())); //Last part spawns a random type of ball.
 
 			this->spawnTimer = 0.f;
 		}		
 	}	
+}
+
+const int Game::randBallType() const
+{
+	int type = SwagBallTypes::DEFAULT;
+	
+	int randValue = rand() % 100 + 1;
+	if (randValue > 60 && randValue <= 80)
+		type = SwagBallTypes::DAMAGING;
+	else if(randValue > 80 && randValue <= 100)
+		type = SwagBallTypes::HEALING;
+
+	return type;
+}
+
+void Game::updatePlayer()
+{
+	this->player.update(this->window);
+
+	if (this->player.getHp() <= 0)
+		this->endGame = true;
 }
 
 void Game::updateCollision()
@@ -131,16 +166,17 @@ void Game::update()
 {
 	this->pollEvents();
 
-	this->spawnSwagBalls();
-	
-	//Update Player 
-	this->player.update(this->window);
-
-	//Update Collison
-	this->updateCollision();
-
-	//Update Points Gui
-	this->updateGui();
+	//End Game
+	if (this->endGame == false)
+	{
+		this->spawnSwagBalls();
+		//Update Player 
+		this->updatePlayer();
+		//Update Collison
+		this->updateCollision();
+		//Update Points Gui
+		this->updateGui();
+	}	
 }
 
 void Game::renderGui(sf::RenderTarget* target)
@@ -163,6 +199,11 @@ void Game::render()
 
 	//Render gui
 	this->renderGui(this->window);
+
+	//Render End Text
+	if (this->endGame == true)	
+		this->window->draw(this->endGameText);
+	
 
 	//Render window
 	this->window->display();
